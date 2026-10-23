@@ -28,7 +28,7 @@ and edit to your liking
 > It doesn't really matter what you shove in the keys as values, just go crazy all you want
 
 4. Inside `main.gd`, you can use this template:
-```gd
+```gdscript
 extends Mod
 
 var asset: ImageTexture
