@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bkn3dpujfb01j"]
+
+[ext_resource type="Script" uid="uid://wbc4ubgkmd6c" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://dtcg1nb5hrlt1" path="res://icon.svg" id="1_ig7tw"]
+
+[node name="FIRST" type="Node2D" unique_id=1876570126]
+script = ExtResource("1_0xm2m")
+
+[node name="Labeler" type="Label" parent="." unique_id=1533156675]
+offset_left = 687.0
+offset_top = 255.0
+offset_right = 972.0
+offset_bottom = 447.0
+text = "first"
+resize_font_to_fit = true
+maximum_font_size = 10000
+
+[node name="Informer" type="Label" parent="." unique_id=410254033]
+offset_left = 94.0
+offset_top = 105.0
+offset_right = 359.0
+offset_bottom = 132.0
+rotation = 0.15707964
+scale = Vector2(0.98, 4.35)
+text = "press K to switch to second scene"
+maximum_font_size = 10000
+
+[node name="Stayer" type="Sprite2D" parent="." unique_id=1115284263]
+position = Vector2(225, 548)
+texture = ExtResource("1_ig7tw")
