@@ -6,9 +6,13 @@ extends Node
 const MODS_DIR: String = "user://mods"
 
 # code
-const VERSION: String = "0.3.0"
-var modsfolder := DirAccess.open(MODS_DIR)
+## Format: [code][major, minor, patch][/code][br]
+## Same applies to [code]Mod[/code]s
+##
+## Compare using comparison operators
+const VERSION: Array[int] = [0,3,1]
 var loadedmods: Array[Mod]
+var _modsfolder := DirAccess.open(MODS_DIR)
 
 signal all_done
 signal mod_loaded(mod: Mod)
@@ -26,12 +30,12 @@ func _ready() -> void:
   mod_loaded.connect(loadedmods.append)
   
   # check for null mods folder
-  if modsfolder == null:
+  if _modsfolder == null:
     DirAccess.make_dir_absolute(MODS_DIR)
-    modsfolder = DirAccess.open(MODS_DIR)
+    _modsfolder = DirAccess.open(MODS_DIR)
 
   # get every mod in modsloc
-  var mods := modsfolder.get_directories()
+  var mods := _modsfolder.get_directories()
   for modfolder: String in mods:
     # check for disabled mods
     if modfolder.begins_with("_"):
@@ -60,6 +64,9 @@ func _ready() -> void:
     # inject some variables into the mod's code
     var manifest := FileAccess.open(MODS_DIR.path_join(modfolder).path_join("manifest.json"), FileAccess.READ)
     loadthisone.Manifest = JSON.parse_string(manifest.get_as_text())
+    # yeah....
+    for i in range(len(loadthisone.Manifest.semver)):
+      loadthisone.Manifest.semver[i] = int(loadthisone.Manifest.semver[i])
     manifest.close()
     loadthisone.MyFolder = MODS_DIR.path_join(modfolder)
     
@@ -69,10 +76,10 @@ func _ready() -> void:
     
     # tell everyone a mod has loaded
     print_rich("[b]GTML INFO[/b] :: Added %s %s by %s (%s)" % [
-      loadthisone.Manifest["name"],
-      loadthisone.Manifest["version"],
-      loadthisone.Manifest["author"],
-      loadthisone.Manifest["codename"]
+      loadthisone.Manifest.name,
+      ".".join(loadthisone.Manifest.semver),
+      loadthisone.Manifest.author,
+      loadthisone.Manifest.codename
     ])
   
   all_done.emit()
