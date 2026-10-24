@@ -8,5 +8,5 @@ I refuse to read and know [allat](https://wiki.godotmodding.com/)
 The wiki exists ❤️
 
 # TODO
-- [ ] How-to's (**high priority**)
+- [X] [How-to's](https://github.com/greg0rygreg/GTML/wiki)
 - [ ] Dependencies (**low priority**, you can do `await Modloader.all_done` before checking for libraries)
