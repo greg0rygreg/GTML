@@ -9,4 +9,4 @@ The wiki exists ❤️
 
 # TODO
 - [X] [How-to's](https://github.com/greg0rygreg/GTML/wiki)
-- [ ] Dependencies (**low priority**, you can do `await Modloader.all_done` before checking for libraries)
+- [ ] Dependencies (**low priority**, you can do `await Modloader.all_done` before checking for dependencies)

@@ -20,7 +20,7 @@
 extends Node
 class_name Mod
 
-## The manifest of your mod; [b]please[/b] only read it to not cause unexpected behaviour
+## The manifest of your mod, automatically set by GTML
 var Manifest: Dictionary = {
   "name": "Mod Name Here",
   "author": "Author Name(s) Here",
@@ -30,22 +30,7 @@ var Manifest: Dictionary = {
 }
 ## Same as [code]get_tree().root[/code]
 @onready var Root := get_tree().root
-## The folder where your mod lives[br]
-## Example: [code]user://mods/YourMod[/code]
-var MyFolder: String
-
-## Prints info to the console
-func InfoPrint(what: String):
-  print_rich("[b]INFO[/b] | %s (%s) :: %s" % [Manifest.name, Manifest.codename, what])
-  
-## Prints an error to the console
-func ErrorPrint(what: String):
-  push_error("[color=red][b]ERROR[/b] | %s (%s) :: %s[/color]" % [Manifest.name, Manifest.codename, what])
-
-## Prints warnings to the console
-func WarnPrint(what: String):
-  print_rich("[color=yellow][b]WARNING[/b] | %s (%s) :: %s[/color]" % [Manifest.name, Manifest.codename, what])
-
-## Print function used for debugging (nothing restricts you from using it)
-func DebugPrint(what: String):
-  print_rich("[color=yellow][b]DEBUG[/b] | %s (%s) :: %s[/color]" % [Manifest.name, Manifest.codename, what])
+## The folder where your mod lives
+@onready var MyFolder: String = get_script().resource_path.get_base_dir()
+## Logging class used for logging things to the console
+var Logging := Modloader.Logging
