@@ -15,11 +15,12 @@ const Manifest: Dictionary = {
   "semver": [0,5,1],
   "description": "Barebones-ish modloader for Godot"
 }
-var loadedmods: Array[Mod]
+var loadedmods: Dictionary[String, Mod]
 var _modsfolder := DirAccess.open(MODS_DIR)
 
 signal all_done
 signal mod_loaded(mod: Mod)
+signal mod_unloaded(mod: Mod)
 
 ## Logging class used for logging things to the console
 class Logging:
@@ -53,8 +54,10 @@ func _ready() -> void:
 
   Logging.write("Started", Manifest, Logging.Levels.DEBUG)
 
-  # append every loaded mod to loadedmods array
-  mod_loaded.connect(loadedmods.append)
+  # signal shenanigans
+  mod_loaded.connect(func(mod: Mod): loadedmods[mod.Manifest.codename] = mod)
+  mod_unloaded.connect(func(mod: Mod): mod.queue_free())
+  all_done.connect(loadedmods.make_read_only.call)
 
   # check for null mods folder
   if _modsfolder == null:
@@ -100,16 +103,25 @@ func _ready() -> void:
     for i in range(len(mod_instance.Manifest.semver)):
       mod_instance.Manifest.semver[i] = int(mod_instance.Manifest.semver[i])
     manifest.close()
-    #mod_instance.MyFolder = MODS_DIR.path_join(modfolder)
 
-    # tell everyone a mod has loaded
-    Logging.write("Loaded %s %s by %s (%s)" % [
-      mod_instance.Manifest.name,
-      ".".join(mod_instance.Manifest.semver),
-      mod_instance.Manifest.author,
-      mod_instance.Manifest.codename
-    ], Manifest)
-    get_tree().root.add_child(mod_instance)
+    # tell everyone a mod has LOADED, not INSTANTIATED
     mod_loaded.emit(mod_instance)
+    Logging.write("Loaded %s" % mod_instance.Manifest.codename, Manifest)
+
+  # check for conflicts
+  var tounload: Array[String]
+  for mod: Mod in loadedmods.values():
+    for conflict: String in mod.Manifest.conflict:
+      if conflict in loadedmods:
+        Logging.write("%s conflicts with %s; first removed" % [conflict, mod.Manifest.codename], Manifest, Logging.Levels.ERROR)
+        tounload.append(conflict)
+  for mod: String in tounload:
+    mod_unloaded.emit(loadedmods[mod])
+    loadedmods.erase(mod)
+
+  # tell everyone a mod has instantiated
+  for mod: Mod in loadedmods.values():
+    Logging.write("Loaded %s" % mod.Manifest.codename, Manifest)
+    get_tree().root.add_child(mod)
 
   all_done.emit()
