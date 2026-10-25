@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bkn3dpujfb01j"]
 
-[ext_resource type="Script" uid="uid://wbc4ubgkmd6c" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://df3gm66saunmw" path="res://Main.cs" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://dtcg1nb5hrlt1" path="res://icon.svg" id="1_ig7tw"]
 
 [node name="FIRST" type="Node2D" unique_id=1876570126]

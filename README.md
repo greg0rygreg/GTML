@@ -1,12 +1,14 @@
-# GTML (G.T. Greg Modloader)
-Barebones-ish modloader for Godot (made by G.T. Greg of couse)
+# GTML (G.T. Greg Modloader) Mono Version
+GTML for C# enthusiasts
+
+Currently doesn't work because Godot can't make nodes from C# scripts
 
 # why?
-I refuse to read and know [allat](https://wiki.godotmodding.com/)
+I fell in love with C# after a dream
 
 # Using GTML...
-The wiki exists ❤️
+ok so i didn't make a wiki for C# GTML yet but hold on
 
 # TODO
-- [X] [How-to's](https://github.com/greg0rygreg/GTML/wiki)
-- [ ] Dependencies (**low priority**, you can do `await Modloader.all_done` before checking for dependencies)
+- [ ] How-to's (**high priority**)
+- [ ] Dependencies (**medium priority**)

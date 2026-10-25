@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cdvcbc5jlluts"]
 
 [ext_resource type="Texture2D" uid="uid://dtcg1nb5hrlt1" path="res://icon.svg" id="1_7dclk"]
-[ext_resource type="Script" uid="uid://dkt3b028ejn33" path="res://sprite_2d.gd" id="2_2ybwh"]
+[ext_resource type="Script" uid="uid://byn8lxwdf45nu" path="res://Spinner.cs" id="2_7dclk"]
 
 [node name="thesecondone" type="Node2D" unique_id=2082689525]
 
@@ -14,4 +14,4 @@ text = "this is the second scene!!!!!"
 modulate = Color(1, 0, 0, 1)
 position = Vector2(1004, 457)
 texture = ExtResource("1_7dclk")
-script = ExtResource("2_2ybwh")
+script = ExtResource("2_7dclk")

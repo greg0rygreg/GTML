@@ -10,19 +10,23 @@ config_version=5
 
 [application]
 
-config/name="Greg Modloader test project"
+config/name="GTML C# project"
 run/main_scene="uid://bkn3dpujfb01j"
-config/features=PackedStringArray("4.8", "Forward Plus")
+config/features=PackedStringArray("4.8", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Modloader="*uid://x2adaftmgw4h"
+Modloader="*uid://ng0mppcmul25"
 
 [display]
 
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="Greg Modloader test project"
 
 [physics]
 
