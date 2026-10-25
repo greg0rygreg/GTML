@@ -134,29 +134,18 @@ public partial class Modloader : Node
         continue;
       }
 
-      // check for correct classes
-      CSharpScript mod_script = GD.Load<CSharpScript>(MODS_DIR.PathJoin(modfolder).PathJoin("Main.cs"));
-      // if (mod_script.GetBaseScript() == null)
-      // {
-      //   Logging.Write("{modfolder} was about to crash GTML; skipped".Replace("{modfolder}", MODS_DIR.PathJoin(modfolder)), Manifest, Logging.Levels.WARNING);
-      //   continue;
-      // }
-      // if (mod_script.GetBaseScript().GetGlobalName() != "Mod")
-      // {
-      //   Logging.Write("{modfolder} is not of type Mod; skipped".Replace("{modfolder}", MODS_DIR.PathJoin(modfolder)), Manifest, Logging.Levels.DEBUG);
-      //   continue;
-      // }
-      Logging.Write("Can't check for classes, {modfolder} shall load".Replace("{modfolder}", MODS_DIR.PathJoin(modfolder)), Manifest, Logging.Levels.WARNING);
-
       // load mod
-      Mod mod_instance = (Mod)mod_script.New();
+      CSharpScript mod_script = GD.Load<CSharpScript>(MODS_DIR.PathJoin(modfolder).PathJoin("Main.cs"));
+      Node mod_instance_temp = new();
+      mod_instance_temp.SetScript(mod_script);
+      Mod mod_instance = (Mod)mod_instance_temp;
 
       // inject some variables into the mod's code
       FileAccess manifest = FileAccess.Open(MODS_DIR.PathJoin(modfolder).PathJoin("manifest.json"), FileAccess.ModeFlags.Read);
       mod_instance.Manifest = (Godot.Collections.Dictionary)Godot.Json.ParseString(manifest.GetAsText());
       // yeah, even in C#....
-      // for (int i = 0; i < ((Godot.Collections.Array)mod_instance.Manifest["semver"]).Count; i++)
-      //   ((Godot.Collections.Array)mod_instance.Manifest["semver"])[i] = Convert.ToInt32(((Godot.Collections.Array)mod_instance.Manifest["semver"])[i]);
+      for (int i = 0; i < ((Godot.Collections.Array)mod_instance.Manifest["semver"]).Count; i++)
+        ((Godot.Collections.Array)mod_instance.Manifest["semver"])[i] = Convert.ToInt32(((Godot.Collections.Array)mod_instance.Manifest["semver"])[i]);
       manifest.Close();
       mod_instance.Manifest.MakeReadOnly();
 
