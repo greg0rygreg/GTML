@@ -12,7 +12,7 @@ const Manifest: Dictionary = {
   "name": "G.T. Greg Modloader",
   "author": "greg0rygreg",
   "codename": "greg0rygreg-GTML",
-  "semver": [0,4,0],
+  "semver": [0,5,1],
   "description": "Barebones-ish modloader for Godot"
 }
 var loadedmods: Array[Mod]
@@ -30,7 +30,7 @@ class Logging:
     WARNING,
     ERROR
   }
-  
+
   ## Logs to console
   static func write(what: String, manifest: Dictionary, level: Levels = Levels.INFO) -> void:
     print_rich("%s[b]%s[/b] | %s (%s) :: %s%s" % [

@@ -32,5 +32,3 @@ var Manifest: Dictionary = {
 @onready var Root := get_tree().root
 ## The folder where your mod lives
 @onready var MyFolder: String = get_script().resource_path.get_base_dir()
-## Logging class used for logging things to the console
-var Logging := Modloader.Logging
