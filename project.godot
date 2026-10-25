@@ -24,6 +24,10 @@ Modloader="*uid://x2adaftmgw4h"
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[dotnet]
+
+project/assembly_name="Greg Modloader test project"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
