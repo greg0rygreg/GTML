@@ -136,9 +136,7 @@ public partial class Modloader : Node
 
       // load mod
       CSharpScript mod_script = GD.Load<CSharpScript>(MODS_DIR.PathJoin(modfolder).PathJoin("Main.cs"));
-      Node mod_instance_temp = new();
-      mod_instance_temp.SetScript(mod_script);
-      Mod mod_instance = (Mod)mod_instance_temp;
+      Mod mod_instance = (Mod)mod_script.New();
 
       // inject some variables into the mod's code
       FileAccess manifest = FileAccess.Open(MODS_DIR.PathJoin(modfolder).PathJoin("manifest.json"), FileAccess.ModeFlags.Read);
